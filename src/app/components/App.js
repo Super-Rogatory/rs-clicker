@@ -1,29 +1,25 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux';
-import { incrementDamageCount } from '../effects/thunk';
-
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import NavBar from "./NavBar";
+import MainScreen from "./MainScreen";
+import Error
+ from "./Error";
 class App extends Component {
-  constructor(){
-    super();
-    this.state = {
-      total: 0
-    }
-  }
-
   render() {
-    const { total, addToDps } = this.props;
     return (
-      <div>
-        <h1>{total}</h1>
-        <button type='button' onClick={() => addToDps(1)}>+</button>
-      </div>
-    )
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <MainScreen />
+          </Route>
+          <Route>
+            <Error />
+          </Route>
+        </Switch>
+      </Router>
+    );
   }
 }
-const mapStateToProps = (state) => ({
-  total: state.totaldps
-})
-const mapDispatchToProps = (dispatch) => ({
-  addToDps: (amount) => dispatch(incrementDamageCount(amount))
-})
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default App;
