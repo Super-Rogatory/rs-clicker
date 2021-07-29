@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar from "./NavBar";
-import MainScreen from "./MainScreen";
+import Home from "./Home";
 import '../styles/App.css';
 import Error
  from "./Error";
@@ -13,7 +13,7 @@ class App extends Component {
           <NavBar />
           <Switch>
             <Route exact path="/">
-              <MainScreen />
+              <Home />
             </Route>
             <Route>
               <Error />

@@ -1,12 +1,19 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class CurrentLevel extends Component {
   render() {
+    const { level } = this.props;
     return (
-      <div class="ui segment">
-        <p>Current Level: {0}</p>
+      <div class="ui basic segment">
+        <p>Current Level: {level}</p>
       </div>
     );
   }
 }
-export default CurrentLevel;
+
+const mapStateToProps = (state) => ({
+  level: state.level,
+});
+
+export default connect(mapStateToProps, null)(CurrentLevel);

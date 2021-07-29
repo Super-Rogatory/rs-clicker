@@ -5,3 +5,8 @@ export const _incrementDamageCount = (amount) => ({
     payload: amount
 });
 
+export const _incrementLevel = () => {
+    return {
+       type: types.INCREMENT_LEVEL 
+    }
+};
