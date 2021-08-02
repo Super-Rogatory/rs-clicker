@@ -4,5 +4,7 @@ const router = require("express").Router();
 router.get("/", (req, res, next) => {
   res.send({ msg: "hello world" });
 });
-
+router.post("/register", (req, res, next) => {
+    
+})
 module.exports = router;

@@ -18,7 +18,7 @@ require('./server/db/index');
 
 // Body Parsing Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // Serve up the public files
 app.use(express.static(path.join(__dirname, '../public')));
