@@ -9,7 +9,7 @@ const User = db.define('user', {
         }
     },
     exp: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         defaultValue: 0
     },
     hash: {
@@ -19,4 +19,5 @@ const User = db.define('user', {
         type: Sequelize.STRING
     }
 })
+
 module.exports = User;
