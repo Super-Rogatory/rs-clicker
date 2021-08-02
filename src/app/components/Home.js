@@ -21,6 +21,10 @@ class Home extends Component {
             </div>
           </div>
         </div>
+        <div className="ui basic right aligned segment">
+          <div className="ui blue button">Save Game</div> 
+        </div>
+        
       </div>
     );
   }

@@ -25,3 +25,4 @@ yarn-error.log*
 # more misc
 .env
 test.js
+id_rsa_priv.pem

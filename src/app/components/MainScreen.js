@@ -19,7 +19,7 @@ class MainScreen extends Component {
         </div>
         <div className="ui center aligned container">
           <span>{`Current DPS: ${0}`}</span>
-          <h1>{`Clicks: ${total}`}</h1>
+          <h1>{`EXP: ${total}`}</h1>
           <button type="button" onClick={() => addToDps(1)}>
             +
           </button>
