@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('./database');
 const User = db.define('user', {
-    name: {
+    username: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
         validate: {
             notEmpty: true
         }

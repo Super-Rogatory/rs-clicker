@@ -6,7 +6,7 @@ const User = require('./User');
 */
 async function createUserTable(){
     try {
-        await User.sync();
+        await User.sync({ force: true });
         console.log('db: created User table')
     } catch (err) {
         console.log(err, '| unable to create table')

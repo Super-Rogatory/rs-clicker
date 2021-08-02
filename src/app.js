@@ -25,4 +25,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', require('./server/api/index'));
 
-app.listen(PORT, () => console.log(`currently listening on PORT ${PORT}`));
+app.use((err, req, res, next) => {
+    // console.log(err);
+    res.send({msg: 'internal server error'}).status(500);
+})
+app.listen(PORT, () => console.log(`server: currently listening on PORT ${PORT}`));
