@@ -32,7 +32,7 @@ class WeaponsList extends Component{
                             <div className="content">{`DPS: ${weapon.dps}`}</div>
                             <div className="content">{`Attack Level: ${weapon.attackLevelRequired}`}</div>
                             <div className="right floated content">
-                               <div className={`ui basic ${ level >= weapon.attackLevelRequired ? 'green' : 'disabled red'} button`}>Buy</div>
+                               <button className={`ui basic ${ level >= weapon.attackLevelRequired ? 'green' : 'disabled red'} button`}>Buy</button>
                             </div>      
                         </div>
                     )

@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const User = require('../db/User');
-const { validPassword, generatePassword, createJWT } = require("../utilities/utils");
+const { validPassword, generatePassword, createJWT,authMiddleware } = require("../utilities/utils");
 // should be mounted on /api/users
 
-router.get("/home", (req, res, next) => {
+router.get("/home", authMiddleware, (req, res, next) => {
   res.send({ msg: "hello world" });
 });
 
-router.post("/login", async(req, res, next) => {
+router.post("/login", async (req, res, next) => {
     try {
         const user = await User.findOne({
             where: {
@@ -18,8 +18,8 @@ router.post("/login", async(req, res, next) => {
         const isValid = validPassword(req.body.password, user.salt, user.hash);
         if(isValid) {
             // issue jwt
-            const { token, expiresIn } = createJWT(user);
-            res.status(200).json({ msg: 'user has logged in', user, token, expiresIn })
+            const { token, expires } = createJWT(user);
+            res.status(200).json({ msg: 'user has logged in', user, token, expiresIn: expires })
         } else {
             res.status(401).json({ msg: 'you have entered the wrong password'});
         }

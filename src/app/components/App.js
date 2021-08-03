@@ -1,27 +1,21 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavBar from "./NavBar";
-import Home from "./Home";
-import '../styles/App.css';
-import Error from "./Error";
+import { connect } from 'react-redux';
+import MainPage from "./MainPage";
+import AuthenticateUser from "./AuthenticateUser";
+
 class App extends Component {
   render() {
-    return (
-      <div className="main-color-or-background-image">
-        <Router>
-          <NavBar />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route>
-              <Error />
-            </Route>
-          </Switch>
-        </Router>
+    const { isAuth } = this.props;
+    return (    
+      <div>
+        { isAuth ? <MainPage /> : <AuthenticateUser />  }
       </div>
     );
   }
 }
+const mapStateToProps = (state) => ({
+  isAuth: state.isAuth
+})
+export default connect(mapStateToProps, null)(App);
 
-export default App;
+// MainPage is the component that allows us to handle specific routes such as linking to the home page or sending an error message.

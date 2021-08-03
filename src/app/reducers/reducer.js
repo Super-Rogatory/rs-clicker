@@ -17,3 +17,11 @@ export const levelReducer = (state = 1, action) => {
             return state;
     }
 }
+export const authReducer = (state = false, action) => {
+    switch(action.type) {
+        case types.SET_AUTH:
+            return true;
+        default:
+            return state;
+    }
+}

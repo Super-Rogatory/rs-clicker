@@ -44,10 +44,11 @@ const createJWT = (user) => {
 }
 const authMiddleware = (req, res, next) => {
     // extract bearer and token from req.headers.authorization
+    console.log(req.headers.authorization);
     try {
-        jwt.verify()
+        // jwt.verify()
     } catch (err) {
         next(err);
     }
 }
-module.exports = { validPassword, generatePassword, createJWT };
+module.exports = { validPassword, generatePassword, createJWT, authMiddleware };
