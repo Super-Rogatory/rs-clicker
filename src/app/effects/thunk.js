@@ -1,4 +1,4 @@
-import { _incrementDamageCount, _incrementLevel, _setAuth } from '../actions/actionCreator';
+import { _incrementDamageCount, _incrementLevel, _setAuth, _removeAuth } from '../actions/actionCreator';
 
 export const incrementDamageCount = (amount) => {
   return (dispatch) => {
@@ -8,12 +8,18 @@ export const incrementDamageCount = (amount) => {
 
 export const increaseLevel = () => {
   return (dispatch) => {
-    dispatch(_incrementLevel);
+    dispatch(_incrementLevel());
   };
 };
 
-export const setAuth = () => {
+export const logIn = () => {
   return (dispatch) => {
       dispatch(_setAuth());
   };
 };
+
+export const logOut = () => {
+    return(dispatch) => {
+        dispatch(_removeAuth());
+    }
+}

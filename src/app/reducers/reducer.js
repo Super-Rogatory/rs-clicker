@@ -21,6 +21,8 @@ export const authReducer = (state = false, action) => {
     switch(action.type) {
         case types.SET_AUTH:
             return true;
+        case types.REMOVE_AUTH:
+            return false;
         default:
             return state;
     }

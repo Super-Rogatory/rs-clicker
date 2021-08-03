@@ -44,6 +44,8 @@ const createJWT = (user) => {
 }
 const authMiddleware = (req, res, next) => {
     // extract bearer and token from req.headers.authorization
+    // protect various routes
+    // <Home /> component should change with respect to the user.
     console.log(req.headers.authorization);
     try {
         // jwt.verify()
