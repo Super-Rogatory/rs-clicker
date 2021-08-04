@@ -29,9 +29,10 @@ class Login extends Component {
         .then((res) => {
             alert(res.data.msg);
             this.setLocalStorage(res.data);
-            // this.props.logIn();
+            this.props.logIn();
         })
         .catch((err) => {
+            alert('invalid username or password');
             console.log(err);
         })
         
@@ -44,8 +45,7 @@ class Login extends Component {
         // isAuth is a slice of the store, check out reducers, thunk creators, etc to see how it is manipulated.
         // We want to dispatch an action so we can change isAuth. if isAuth is true we want to return App
         const { isAuth } = this.props;
-        console.log(isAuth);
-        // if(isAuth) return <Redirect to='/' />;
+        if(isAuth) return <Redirect to='/' />;
 
         const { handleChange, handleSubmit } = this;
         const { username, password } = this.state;
