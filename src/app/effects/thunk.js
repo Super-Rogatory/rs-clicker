@@ -19,7 +19,7 @@ export const logIn = () => {
 };
 
 export const logOut = () => {
-    return(dispatch) => {
+  return (dispatch) => {
         dispatch(_removeAuth());
     }
 }

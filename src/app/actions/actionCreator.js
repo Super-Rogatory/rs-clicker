@@ -11,6 +11,7 @@ export const _incrementLevel = () => ({
 
 export const _setAuth = () => ({
   type: types.SET_AUTH,
+  payload: true
 });
 
 export const _removeAuth = () => ({

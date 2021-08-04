@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 import { logIn } from "../effects/thunk";
 import { connect } from 'react-redux';
-import App from './App';
 
 class Login extends Component {
     constructor(props){
@@ -11,6 +10,7 @@ class Login extends Component {
         this.state = {
             username:  '',
             password: '',
+            loggedIn: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,16 +23,18 @@ class Login extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        const { username, password }= this.state;
+        const { username, password } = this.state;
         const loginInformation = { username, password };
         axios.post('http://localhost:8080/api/users/login', loginInformation, { headers: { 'Content-type': 'application/json' }})
         .then((res) => {
             alert(res.data.msg);
             this.setLocalStorage(res.data);
+            // this.props.logIn();
         })
         .catch((err) => {
             console.log(err);
         })
+        
     }
     setLocalStorage(responseObject) {
         localStorage.setItem('token', responseObject.token);
@@ -40,8 +42,11 @@ class Login extends Component {
     }
     render() {
         // isAuth is a slice of the store, check out reducers, thunk creators, etc to see how it is manipulated.
-        if(this.props.isAuth) return <App />;
-        console.log(this.props.logIn)
+        // We want to dispatch an action so we can change isAuth. if isAuth is true we want to return App
+        const { isAuth } = this.props;
+        console.log(isAuth);
+        // if(isAuth) return <Redirect to='/' />;
+
         const { handleChange, handleSubmit } = this;
         const { username, password } = this.state;
         return (
@@ -51,11 +56,11 @@ class Login extends Component {
                     <form className="ui form" onSubmit={handleSubmit} >
                         <div className="field">
                             <label>Username</label>
-                            <input type="text" name="username" placeholder="Username" value={username} onChange={handleChange} />
+                            <input type="text" name="username" placeholder="Username" value={username} onChange={handleChange} required />
                         </div>
                         <div className="field">
                             <label>Password</label>
-                            <input type="password" name="password" value={password} onChange={handleChange} />
+                            <input type="password" name="password" value={password} onChange={handleChange} required />
                         </div>
 
                     <button className="ui button" type="submit">Submit</button>
@@ -66,7 +71,7 @@ class Login extends Component {
                         <i className="chevron right icon"></i>
                         Register
                     </button>
-                </Link>         
+                </Link>
             </div>
         );
     }

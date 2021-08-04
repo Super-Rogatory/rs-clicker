@@ -48,18 +48,18 @@ class Register extends Component {
                     <form className="ui form" onSubmit={handleSubmit} >
                         <div className="field">
                             <label>Username</label>
-                            <input type="text" name="username" placeholder="Username" value={username} onChange={handleChange} />
+                            <input type="text" name="username" placeholder="Username" value={username} onChange={handleChange} required />
                         </div>
                         <div className="field">
                             <label>Password</label>
-                            <input type="password" name="password" value={password} onChange={handleChange} />
+                            <input type="password" name="password" value={password} onChange={handleChange} required />
                         </div>
 
                     <button className="ui button" type="submit">Submit</button>
                     </form>
                 </div>
                 <Link to='/login'>
-                    <button className="ui right floated labeled icon button">
+                    <button type='reset' className="ui right floated labeled icon button">
                         <i className="sign-in icon"></i>
                         Sign In
                     </button>

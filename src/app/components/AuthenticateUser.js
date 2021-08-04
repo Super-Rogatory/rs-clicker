@@ -4,14 +4,18 @@ import Error from './Error';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Register from './Register';
 import Login from './Login';
-
+import { connect } from 'react-redux';
+import App from './App';
 class AuthenticateUser extends Component {
   render() {
+    const { isAuth } = this.props;
     return (
       <Router>
         <NavBar />
         <Switch>
-            <Route path='/' exact component={Register} />
+            <Route exact path='/'>
+              { isAuth ? <App /> : <Register /> }
+            </Route>
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route component={Error} />
@@ -20,4 +24,7 @@ class AuthenticateUser extends Component {
     );
   }
 }
-export default AuthenticateUser;
+const mapStateToProps = (state) => ({
+  isAuth: state.isAuth
+})
+export default connect(mapStateToProps, null)(AuthenticateUser);

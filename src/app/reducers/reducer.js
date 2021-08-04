@@ -20,9 +20,9 @@ export const levelReducer = (state = 1, action) => {
 export const authReducer = (state = false, action) => {
     switch(action.type) {
         case types.SET_AUTH:
-            return true;
+            return action.payload;
         case types.REMOVE_AUTH:
-            return false;
+            return action.payload;
         default:
             return state;
     }
