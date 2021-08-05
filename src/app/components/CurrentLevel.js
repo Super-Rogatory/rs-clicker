@@ -5,7 +5,7 @@ class CurrentLevel extends Component {
   render() {
     const { level } = this.props;
     return (
-      <div class="ui basic segment">
+      <div className="ui basic segment">
         <p>Current Level: {level}</p>
       </div>
     );

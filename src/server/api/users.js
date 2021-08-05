@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require('../db/User');
-const { validPassword, generatePassword, createJWT,authMiddleware } = require("../utilities/utils");
+const { validPassword, generatePassword, createJWT, authMiddleware } = require("../utilities/utils");
 // should be mounted on /api/users
 
 router.get("/home", authMiddleware, (req, res, next) => {

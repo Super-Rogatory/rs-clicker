@@ -6,7 +6,7 @@ import Weapons from "./Weapons";
 class Home extends Component {
   render() {
     return (
-      <div className>
+      <div className="">
         <div className="ui center aligned container">
           <CurrentLevel />
         </div>
