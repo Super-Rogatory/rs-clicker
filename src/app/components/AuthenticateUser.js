@@ -7,25 +7,14 @@ import Login from './Login';
 import { connect } from 'react-redux';
 import Home from './Home';
 class AuthenticateUser extends Component {
-  constructor(){
-    super();
-    this.state = {
-      isLoggedIn: false
-    }
-    this.checkStatus = this.checkStatus.bind(this);
-  }
-  checkStatus() {
-    if(this.props.isAuth) this.setState({ isLoggedIn: true });
-    return this.state.isLoggedIn;
-  }
   render() {
-    const { checkStatus } = this;
+    const { isAuth } = this.props;
     return (
       <Router>
         <NavBar />
         <Switch>
             <Route exact path='/'>
-              { checkStatus ? <Home /> : <Register /> }
+              { isAuth ? <Home /> : <Register /> }
             </Route>
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />

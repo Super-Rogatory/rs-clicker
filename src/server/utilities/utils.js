@@ -24,7 +24,7 @@ const generatePassword = (password) => {
 const createJWT = (user) => {
     const id = user.id;
 
-    const expiresIn = '15s';
+    const expiresIn = '1d';
 
     const payload = {
         sub: id,
@@ -46,11 +46,17 @@ const authMiddleware = (req, res, next) => {
     // extract bearer and token from req.headers.authorization
     // protect various routes
     // <Home /> component should change with respect to the user.
-    console.log(req.headers.authorization);
+    const [bearer, token] = req.headers.authorization.split(' ');
     try {
-        // jwt.verify()
+        if(bearer === 'Bearer' && token.match(/\S+\.\S+\.\S+/) !== null) {
+            const payloadData = jwt.verify(token, PUB_KEY, { algorithms: ['RS256'] });
+            req.jwt = payloadData;
+            next();
+        } else {
+            res.status(401).json({ msg: 'invalid token' });
+        }
     } catch (err) {
-        next(err);
+        res.status(401).json({ msg: 'token has expired | user does not have access', err });
     }
 }
 module.exports = { validPassword, generatePassword, createJWT, authMiddleware };

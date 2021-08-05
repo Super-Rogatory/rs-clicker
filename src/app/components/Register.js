@@ -22,7 +22,7 @@ class Register extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        const { username, password }= this.state;
+        const { username, password } = this.state;
         const registerInformation = { username, password };
         axios.post('http://localhost:8080/api/users/register', registerInformation, { headers: { 'Content-type': 'application/json' }})
         .then((res) => {

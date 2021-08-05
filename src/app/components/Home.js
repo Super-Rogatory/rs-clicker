@@ -2,11 +2,44 @@ import React, { Component } from "react";
 import MainScreen from "./MainScreen";
 import CurrentLevel from "./CurrentLevel";
 import Weapons from "./Weapons";
+import axios from 'axios';
 
 class Home extends Component {
+  constructor(){
+    super();
+    this.state = {
+      isLoggedIn: false,
+      isFetching: true,
+      userData: {}
+    }
+  }
+  componentDidMount(){
+    axios.get(('http://localhost:8080/api/users'))
+    .then((res) => {
+      this.setState({
+        isLoggedIn: true,
+      });
+      return res.data.sub
+    })
+    .then((id) => { 
+      if(id === undefined || id < 1) throw new Error('id error');
+      const { data } = axios.get((`http://localhost:8080/api/users/${id}`));
+      return data;
+    })
+    .then((data) => {
+      this.setState({
+        userData: data
+      })
+    })
+    .catch((err) => console.log(err));
+
+    this.setState({ isFetching: false });
+  }
   render() {
+    const { isFetching, userData } = this.state;
+    console.log(!isFetching ? userData : 'null');
     return (
-      <div className="">
+      <div className={`ui basic ${isFetching && 'loading'} segment`}>
         <div className="ui center aligned container">
           <CurrentLevel />
         </div>

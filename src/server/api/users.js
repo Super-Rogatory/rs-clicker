@@ -3,8 +3,17 @@ const User = require('../db/User');
 const { validPassword, generatePassword, createJWT, authMiddleware } = require("../utilities/utils");
 // should be mounted on /api/users
 
-router.get("/home", authMiddleware, (req, res, next) => {
-  res.send({ msg: "hello world" });
+router.get("/", authMiddleware, (req, res, next) => {
+    res.status(200).json(req.jwt);
+});
+
+router.get("/:id", authMiddleware, async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.params.id, { attributes: ['id', 'username', 'exp' ]});
+        res.status(200).json(user);
+    } catch (err) {
+        next(err);
+    }
 });
 
 router.post("/login", async (req, res, next) => {
@@ -17,14 +26,14 @@ router.post("/login", async (req, res, next) => {
         if(!user) res.status(401).json({ msg: 'user not found'});
         const isValid = validPassword(req.body.password, user.salt, user.hash);
         if(isValid) {
-            // issue jwt
+            // issue jwt, the object returned has a token and expires, this will be set in localStorage
             const { token, expires } = createJWT(user);
             res.status(200).json({ msg: 'user has logged in', user, token, expiresIn: expires })
         } else {
             res.status(401).json({ msg: 'you have entered the wrong password'});
         }
     } catch (err) {
-        
+        next(err);
     }
 })
 router.post("/register", async (req, res, next) => {
@@ -35,12 +44,7 @@ router.post("/register", async (req, res, next) => {
             salt: hashSalt.salt,
             hash: hashSalt.hash
         }
-        // const isUsernameTaken = await User.findOne({
-        //     where: {
-        //         username: newUser.username
-        //     }
-        // });
-        // if(isUsernameTaken) throw new Error('username is already taken');
+
         const userAddedToDb = await User.create(newUser);
         res.json({ msg: 'user has successfully been created', user: userAddedToDb })        
     } catch (err) {
