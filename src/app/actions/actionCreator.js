@@ -15,5 +15,5 @@ export const _setAuth = () => ({
 });
 
 export const _removeAuth = () => ({
-    type: types.REMOVE_AUTH,
+  type: types.REMOVE_AUTH,
 });

@@ -37,6 +37,9 @@ class Login extends Component {
         
     }
     setLocalStorage(responseObject) {
+        if(!Object.keys(responseObject).length) throw new Error('no information received from login route');
+        const bearer = responseObject.token.split(' ')[0];
+        if(bearer !== 'Bearer') throw new Error('token error');
         localStorage.setItem('token', responseObject.token);
         localStorage.setItem('expires', responseObject.expiresIn);
     }

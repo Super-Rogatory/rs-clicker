@@ -9,13 +9,22 @@ router.get("/", authMiddleware, (req, res, next) => {
 
 router.get("/:id", authMiddleware, async (req, res, next) => {
     try {
-        const user = await User.findByPk(req.params.id, { attributes: ['id', 'username', 'exp' ]});
+        const user = await User.findByPk(req.params.id, { attributes: ['id', 'username', 'exp', 'currentLevel' ]});
         res.status(200).json(user);
     } catch (err) {
         next(err);
     }
 });
 
+router.post("/:id", authMiddleware, async (req, res, next) => {
+    try {
+        const user = User.findByPk(req.params.id);
+        if(!user) throw new Error('no user found');
+        user.update(req.body);
+    } catch (err) {
+        next(err);
+    }
+})
 router.post("/login", async (req, res, next) => {
     try {
         const user = await User.findOne({

@@ -13,6 +13,10 @@ const User = db.define('user', {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
+    currentLevel: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1
+    },
     hash: {
         type: Sequelize.STRING
     },

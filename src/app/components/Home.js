@@ -13,6 +13,7 @@ class Home extends Component {
       isFetching: true,
       userData: {}
     }
+    this.saveGame = this.saveGame.bind(this);
   }
   componentDidMount(){
     axios.get(('http://localhost:8080/api/users'))
@@ -24,25 +25,32 @@ class Home extends Component {
     })
     .then((id) => { 
       if(id === undefined || id < 1) throw new Error('id error');
-      const { data } = axios.get((`http://localhost:8080/api/users/${id}`));
-      return data;
-    })
-    .then((data) => {
-      this.setState({
-        userData: data
+      axios.get(`http://localhost:8080/api/users/${id}`)
+      .then((res) => res.data)
+      .then((data) => {
+        this.setState({
+          userData: data
+        })
       })
     })
     .catch((err) => console.log(err));
-
     this.setState({ isFetching: false });
+  }
+  saveGame() {
+    const { userData } = this.state;
+    const { id } = userData;
+    axios.post(`http://localhost:8080/api/users/${id}`, userData)
+    .then((res) => res.data)
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err))
   }
   render() {
     const { isFetching, userData } = this.state;
-    console.log(!isFetching ? userData : 'null');
+    const { saveGame } = this;
     return (
       <div className={`ui basic ${isFetching && 'loading'} segment`}>
         <div className="ui center aligned container">
-          <CurrentLevel />
+          <CurrentLevel lvl={userData.currentLevel} />
         </div>
         <div className="ui three column padded centered grid">
           <div className="row">
@@ -50,7 +58,7 @@ class Home extends Component {
               <BestWeapon />
             </div>
             <div className="ten wide column">
-              <MainScreen />
+              <MainScreen exp={userData.exp} />
             </div>
             <div className="three wide column">
               <Weapons />
@@ -58,7 +66,7 @@ class Home extends Component {
           </div>
         </div>
         <div className="ui basic right aligned segment">
-          <div className="ui blue button">Save Game</div> 
+          <button type='button' className="ui blue button" onDoubleClick={saveGame} >Save Game</button> 
         </div>
         
       </div>

@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class CurrentLevel extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      lvl: this.props.lvl
+    }
+  }
   render() {
-    const { level } = this.props;
+    const { lvl } = this.props;
     return (
       <div className="ui basic segment">
-        <p>Current Level: {level}</p>
+        <p>Current Level: {lvl}</p>
       </div>
     );
   }
