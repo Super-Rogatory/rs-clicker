@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MainScreen from "./MainScreen";
 import CurrentLevel from "./CurrentLevel";
 import Weapons from "./Weapons";
+import BestWeapon from "./BestWeapon";
 import axios from 'axios';
 
 class Home extends Component {
@@ -45,7 +46,9 @@ class Home extends Component {
         </div>
         <div className="ui three column padded centered grid">
           <div className="row">
-            <div className="three wide column">Best Weapon</div>
+            <div className="three wide column">
+              <BestWeapon />
+            </div>
             <div className="ten wide column">
               <MainScreen />
             </div>
