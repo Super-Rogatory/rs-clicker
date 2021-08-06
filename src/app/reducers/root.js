@@ -2,7 +2,7 @@ import { damageReducer, levelReducer, authReducer } from './reducer';
 import { combineReducers } from 'redux';
 
 const combinedReducer = combineReducers({
-    totaldps: damageReducer,
+    exp: damageReducer,
     level: levelReducer,
     isAuth: authReducer
 });

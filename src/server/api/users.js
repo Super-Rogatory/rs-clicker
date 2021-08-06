@@ -16,15 +16,7 @@ router.get("/:id", authMiddleware, async (req, res, next) => {
     }
 });
 
-router.post("/:id", authMiddleware, async (req, res, next) => {
-    try {
-        const user = User.findByPk(req.params.id);
-        if(!user) throw new Error('no user found');
-        user.update(req.body);
-    } catch (err) {
-        next(err);
-    }
-})
+
 router.post("/login", async (req, res, next) => {
     try {
         const user = await User.findOne({
@@ -56,6 +48,17 @@ router.post("/register", async (req, res, next) => {
 
         const userAddedToDb = await User.create(newUser);
         res.json({ msg: 'user has successfully been created', user: userAddedToDb })        
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.put("/:id", authMiddleware, async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if(!user) throw new Error('no user found');
+        console.log(req.body);
+        await user.update(req.body);
     } catch (err) {
         next(err);
     }

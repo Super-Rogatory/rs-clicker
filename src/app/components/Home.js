@@ -4,6 +4,7 @@ import CurrentLevel from "./CurrentLevel";
 import Weapons from "./Weapons";
 import BestWeapon from "./BestWeapon";
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 class Home extends Component {
   constructor(){
@@ -39,7 +40,10 @@ class Home extends Component {
   saveGame() {
     const { userData } = this.state;
     const { id } = userData;
-    axios.post(`http://localhost:8080/api/users/${id}`, userData)
+    this.setState({
+      userData: {...userData, exp: this.props.total}
+    })
+    axios.put(`http://localhost:8080/api/users/${id}`, userData)
     .then((res) => res.data)
     .then((data) => console.log(data))
     .catch((err) => console.log(err))
@@ -73,5 +77,7 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;
+const mapStateToProps = (state) => ({
+  total: state.exp
+});
+export default connect(mapStateToProps, null)(Home);
